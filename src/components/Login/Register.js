@@ -1,52 +1,80 @@
-import React  from 'react'
+import React from 'react'
 import HeadTitle from '../HeadTitle/HeadTitle'
-import "./Register.css"
-import { Link } from 'react-router-dom'
 import {useState} from "react"
+import "./Design.css"
+import { Link } from 'react-router-dom'
 
 
-const Register = () => {
+const Login = () => {
+  
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
 
-     const [email, setEmail] = useState("")
-     const [password, setPassword] = useState("")
+    const [allValue, setAllValue] = useState([])
+    const formSubmit = (e) => {
+        e.preventDefault()
 
+        const newValue = {email,password}
+        setAllValue([...allValue,newValue])
+         
+        setEmail("")   
+        setPassword("")
+
+    }
     return (
         <>
-           <HeadTitle/> 
+        <HeadTitle/> 
+        <section className="forms top">
+            <div className="container">
+                <div className="sign-box">
+                    <p>Register for a new account</p>
+                    <form onSubmit={formSubmit}>
+                         <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
+                         <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    
+                    <div className="flex_space">
+                        <div className="flex">
+                            <input type="checkbox" />
+                            <label>Remember Me</label>
+                        </div>
+                       
+                 
+                    </div>
+                    <button type="submit" className="primary-btn"> Sign Up</button>
+                    <div className="new-account">
+                   <p>Already have an account? <Link to="/register">Sign in</Link></p>
+                   </div>
+                  
+                    </form>
+                   
+                </div>
+            </div>
+        </section>
+        <section className="show-data">
+                {allValue.map((currentValue) => {
+                    const {email,password} = currentValue
 
-                     <div className="register">
-               <div className="register__container">
+                    return(
 
-               <input
-          type="text"
-          className="register__textBox"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="E-mail Address"
-                 />
+                        <div className="sign-box">
+                        <h1>Send Successfully</h1>
+                
+                        <h3>
+                            Email: <p>{email}</p>
+                        </h3>
+                        <h3>
+                            Password: <p>{password}</p>
+                        </h3>
+                    </div>
+                    )
+                })}
+          
+            </section>
+      
 
-                   <input
-                 type="password"
-               className="register__textBox"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
 
-        <button className="register__btn" >
-          Register
-        </button>
-       
-        <div>
-          Already have an account? <Link to="/login">Login</Link> now.
-        </div>
-      </div>
-    </div>
-  );
-
-        </>
+     </>
     )
-    }
- 
+}
 
-export default Register
+export default Login

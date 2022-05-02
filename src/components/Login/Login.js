@@ -1,8 +1,9 @@
-import React from 'react'
+import React, {useRef} from 'react'
 import HeadTitle from '../HeadTitle/HeadTitle'
 import {useState} from "react"
 import "./Design.css"
 import { Link } from 'react-router-dom'
+
 
 
 const Login = () => {
@@ -20,6 +21,9 @@ const Login = () => {
         setEmail("")   
         setPassword("")
 
+        const emailRef = useRef()
+        const passwordRef = useRef()
+       
     }
     return (
         <>
@@ -29,8 +33,8 @@ const Login = () => {
                 <div className="sign-box">
                     <p>Enter your e-mail and password below to log in to your account and use the benefit of our website</p>
                     <form onSubmit={formSubmit}>
-                         <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-                         <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
+                         <input type="email" name="email" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)}/>
+                         <input type="password" name="password" placeholder="Password" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)}/>
                     
                     <div className="flex_space">
                         <div className="flex">
@@ -44,7 +48,7 @@ const Login = () => {
                     </div>
                     <button type="submit" className="primary-btn"> Sign In</button>
                     <div className="new-account">
-                   <p>Dont Have An Account? <Link to="/register">Sign Up</Link></p>
+                   <p>Don't Have An Account? <Link to="/register">Sign Up</Link></p>
                    </div>
                   
                     </form>
