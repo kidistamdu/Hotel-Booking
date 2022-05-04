@@ -1,19 +1,28 @@
-import React, {useRef} from 'react'
+
 import HeadTitle from '../HeadTitle/HeadTitle'
 import {useState} from "react"
 import "./Design.css"
 import { Link } from 'react-router-dom'
+import {useUserAuth} from "../../context/UserAuthContext"
 
 
 
 const Login = () => {
   
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [error, setError] = useState("");
+    const {signUp} = useUserAuth();
 
     const [allValue, setAllValue] = useState([])
-    const formSubmit = (e) => {
-        e.preventDefault()
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        error("");
+        try {
+            await signUp(email, password);
+        }catch (err){
+
+        }
 
         const newValue = {email,password}
         setAllValue([...allValue,newValue])
@@ -21,8 +30,7 @@ const Login = () => {
         setEmail("")   
         setPassword("")
 
-        const emailRef = useRef()
-        const passwordRef = useRef()
+       
        
     }
     return (
@@ -32,9 +40,9 @@ const Login = () => {
             <div className="container">
                 <div className="sign-box">
                     <p>Enter your e-mail and password below to log in to your account and use the benefit of our website</p>
-                    <form onSubmit={formSubmit}>
-                         <input type="email" name="email" placeholder="Email" ref={emailRef} value={email} onChange={(e) => setEmail(e.target.value)}/>
-                         <input type="password" name="password" placeholder="Password" ref={passwordRef} value={password} onChange={(e) => setPassword(e.target.value)}/>
+                    <form onSubmit={handleSubmit}>
+                         <input type="email" name="email" placeholder="Email"  value={email} onChange={(e) => setEmail(e.target.value)}/>
+                         <input type="password" name="password" placeholder="Password"  value={password} onChange={(e) => setPassword(e.target.value)}/>
                     
                     <div className="flex_space">
                         <div className="flex">

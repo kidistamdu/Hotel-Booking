@@ -2,25 +2,36 @@ import React from 'react'
 import HeadTitle from '../HeadTitle/HeadTitle'
 import {useState} from "react"
 import "./Design.css"
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import {useUserAuth} from "../../context/UserAuthContext"
+import {Alert} from "react-bootstrap"
 
 
-const Login = () => {
+const Register = () => {
   
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
 
-    const [allValue, setAllValue] = useState([])
-    const formSubmit = (e) => {
-        e.preventDefault()
-
-        const newValue = {email,password}
-        setAllValue([...allValue,newValue])
-         
-        setEmail("")   
-        setPassword("")
-
-    }
+        const [email, setEmail] = useState("");
+        const [error, setError] = useState("");
+        const [password, setPassword] = useState("");
+        const { signUp } = useUserAuth();
+        let navigate = useNavigate();
+        
+        const [allValue, setAllValue] = useState([])
+        const handleSubmit = async (e) => {
+          e.preventDefault();
+          setError("");
+          try {
+            await signUp(email, password);
+            navigate("/");
+          } catch (err) {
+            setError(err.message);
+          }
+          const newValue = {email,password}
+          setAllValue([...allValue,newValue])
+           
+          setEmail("")   
+          setPassword("")
+        };
     return (
         <>
         <HeadTitle/> 
@@ -28,7 +39,8 @@ const Login = () => {
             <div className="container">
                 <div className="sign-box">
                     <p>Register for a new account</p>
-                    <form onSubmit={formSubmit}>
+                    {error && <Alert variant="danger">{error}</Alert>}
+                    <form onSubmit={handleSubmit}>
                          <input type="email" name="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                          <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)}/>
                     
@@ -50,26 +62,7 @@ const Login = () => {
                 </div>
             </div>
         </section>
-        <section className="show-data">
-                {allValue.map((currentValue) => {
-                    const {email,password} = currentValue
-
-                    return(
-
-                        <div className="sign-box">
-                        <h1>Send Successfully</h1>
-                
-                        <h3>
-                            Email: <p>{email}</p>
-                        </h3>
-                        <h3>
-                            Password: <p>{password}</p>
-                        </h3>
-                    </div>
-                    )
-                })}
-          
-            </section>
+       
       
 
 
@@ -77,4 +70,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Register

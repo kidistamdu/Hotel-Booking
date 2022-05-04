@@ -1,0 +1,44 @@
+*{
+    padding: 0;
+    margin: 0;
+    align-items: center;
+}
+
+.book h2 {
+    font-size: 20px;
+    color: black;
+    font-weight: 400;
+    margin: 10px 0;
+    text-align: center;
+
+    
+}
+.book .row{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-left: 350px;
+    margin-bottom: 50px;
+   
+}
+.book .row form {
+    flex: 1 1 40rem;
+    padding: 2rem;
+    box-shadow: 0 1rem 2rem;
+    border-radius: .5rem;
+   
+
+   
+    
+}
+
+.book .row form .input-box {
+    padding: 0;
+    align-items: center;
+    margin-bottom: 20px;
+    box-shadow: 2px;
+}
+.book .row form .input-box h3{
+    font-size: 1rem;
+    padding: 1rem 0;
+}

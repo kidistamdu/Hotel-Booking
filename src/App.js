@@ -8,21 +8,25 @@ import Login from './components/Login/Login';
 import Register from './components/Login/Register';
 import Contact from './components/Contact/Contact';
 import Gallery from './components/Gallery/Gallery';
-import Destination from './components/Destination/Destination';
+import Book from './components/Book/Book';
 import Blog from './components/Blog/Blog';
 import Testimonail from './components/Testimonail/Testimonail';
+import { UserAuthContextProvider } from './context/UserAuthContext';
+
 
 
 
 const App = () => {
   return (
     <>
+    
         <Navbar/>
+        <UserAuthContextProvider>
           <Routes>
               <Route path="/" exact element={<Home/>}/>
               <Route path="/about" exact element={<About/>}/>
               <Route path="/gallery" exact element={<Gallery/>}/>
-              <Route path="/destination" exact element={<Destination/>}/>
+              <Route path="/book" exact element={<Book/>}/>
               <Route path="/blog" exact element={<Blog/>}/>
               <Route path="/testimonail" exact element={<Testimonail/>}/>
               <Route path="/contact" exact element={<Contact/>}/>
@@ -30,7 +34,7 @@ const App = () => {
               <Route path="/register" exact element={<Register/>}/>
               
             </Routes>
-     
+            </UserAuthContextProvider>
   
     </>
   )
