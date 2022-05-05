@@ -12,26 +12,21 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const {signUp} = useUserAuth();
+    const {login} = useUserAuth();
 
     const [allValue, setAllValue] = useState([])
     const handleSubmit = async (e) => {
         e.preventDefault();
         error("");
         try {
-            await signUp(email, password);
+            await login(email, password);
         }catch (err){
 
         }
-
         const newValue = {email,password}
         setAllValue([...allValue,newValue])
-         
         setEmail("")   
         setPassword("")
-
-       
-       
     }
     return (
         <>

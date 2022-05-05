@@ -9,18 +9,10 @@ import {
 } from "firebase/auth"
 import { auth } from "../context/firebase";
 
-const UserAuthContext = createContext();
+export const AuthContext = createContext();
 
-export function UserAuthContextProvider({ children }) {
-    const [user, setUser] = useState("");
-
-    function signUp(email, password){
-        return createUserWithEmailAndPassword(auth, email, password);
-    }
-
-    function logIn(email, password){
-        return signInWithEmailAndPassword(auth, email, password);
-    }
+export const AuthContextProvider = ({ children }) => {
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -30,9 +22,25 @@ export function UserAuthContextProvider({ children }) {
            unsubscribe();
         }
     }, [])
-    return <UserAuthContext value={{user,signUp}}> {children} </UserAuthContext>
+
+    return (
+        <AuthContext.Provider
+            value={{
+                user,
+                setUser,
+                login: (email, password) => {
+                    return signInWithEmailAndPassword(auth, email, password);
+                },
+                register: (email, password) => {
+                    return createUserWithEmailAndPassword(auth, email, password);
+                },
+                logout: () => {}
+            }}>
+            {children}
+        </AuthContext.Provider>
+    )
 }
 
 export function useUserAuth() {
-    return useContext(UserAuthContext);
+    return useContext(AuthContext);
 }

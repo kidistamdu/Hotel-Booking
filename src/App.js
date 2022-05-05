@@ -11,7 +11,7 @@ import Gallery from './components/Gallery/Gallery';
 import Book from './components/Book/Book';
 import Blog from './components/Blog/Blog';
 import Testimonail from './components/Testimonail/Testimonail';
-import { UserAuthContextProvider } from './context/UserAuthContext';
+import { AuthContextProvider } from './context/UserAuthContext';
 
 
 
@@ -19,23 +19,20 @@ import { UserAuthContextProvider } from './context/UserAuthContext';
 const App = () => {
   return (
     <>
-    
-        <Navbar/>
-        <UserAuthContextProvider>
-          <Routes>
-              <Route path="/" exact element={<Home/>}/>
-              <Route path="/about" exact element={<About/>}/>
-              <Route path="/gallery" exact element={<Gallery/>}/>
-              <Route path="/book" exact element={<Book/>}/>
-              <Route path="/blog" exact element={<Blog/>}/>
-              <Route path="/testimonail" exact element={<Testimonail/>}/>
-              <Route path="/contact" exact element={<Contact/>}/>
-              <Route path="/sign-in" exact element={<Login/>}/>
-              <Route path="/register" exact element={<Register/>}/>
-              
-            </Routes>
-            </UserAuthContextProvider>
-  
+      <Navbar/>
+      <AuthContextProvider>
+        <Routes>
+            <Route path="/" exact element={<Home/>}/>
+            <Route path="/about" exact element={<About/>}/>
+            <Route path="/gallery" exact element={<Gallery/>}/>
+            <Route path="/book" exact element={<Book/>}/>
+            <Route path="/blog" exact element={<Blog/>}/>
+            <Route path="/testimonail" exact element={<Testimonail/>}/>
+            <Route path="/contact" exact element={<Contact/>}/>
+            <Route path="/sign-in" exact element={<Login/>}/>
+            <Route path="/register" exact element={<Register/>}/>
+          </Routes>
+      </AuthContextProvider>
     </>
   )
 }

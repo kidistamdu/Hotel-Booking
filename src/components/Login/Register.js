@@ -8,12 +8,10 @@ import {Alert} from "react-bootstrap"
 
 
 const Register = () => {
-  
-
         const [email, setEmail] = useState("");
         const [error, setError] = useState("");
         const [password, setPassword] = useState("");
-        const { signUp } = useUserAuth();
+        const { register } = useUserAuth();
         let navigate = useNavigate();
         
         const [allValue, setAllValue] = useState([])
@@ -21,14 +19,13 @@ const Register = () => {
           e.preventDefault();
           setError("");
           try {
-            await signUp(email, password);
+            await register(email, password);
             navigate("/");
           } catch (err) {
             setError(err.message);
           }
           const newValue = {email,password}
           setAllValue([...allValue,newValue])
-           
           setEmail("")   
           setPassword("")
         };
